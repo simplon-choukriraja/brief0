@@ -1,3 +1,4 @@
+
 ## **Docker installé sur votre ordinateur**
 - *Update the system*
 
@@ -97,12 +98,17 @@ git clone https://github.com/simplon-choukriraja/Brief8-Raja.git
 
 FROM tiangolo/uwsgi-nginx-flask:python3.6
 USER root
+RUN pip install redis
 ADD /azure-vote /app
 
-- sudo docker build .
+HEALTHCHECK --interval=1m --timeout=30s --retries=3 \
+    CMD curl -f http://localhost/ || exit 1
+
+- docker build .
+
 ```
 
-2- *docker-compose.yml*Ò
+2- *docker-compose.yml*
 
 - sudo nano docker-compose.yml
 
@@ -120,4 +126,61 @@ services:
     container_name: redis
    
 ```
-- docker compose up 
+- docker compose up (commande pour lancer le docker-compose.yml)
+
+### *Bonus* 
+
+Ajouter un *HEALTHCHECK* dans le Dockerfile pour faire des vérifications de la santé du container.
+
+*HEALTHCHECK* : indique à Docker comment tester le container pour vérifier qu'il fonctionne toujours correctement. 
+
+``` consol
+
+HEALTHCHECK --interval=1m --timeout=30s --retries=3 \
+    CMD curl -f http://localhost/ || exit 1
+
+```
+- docker-compose ps -a
+
+ ![](https://hackmd.io/_uploads/Bk0LiRNO2.png)
+
+## **Exercise 1.2: Automatiser pour ne plus refaire** 
+
+- *Dockerfile*
+
+```consol
+
+FROM jenkins/jenkins:lts
+USER root
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt update -y && \
+    apt install -y jq parallel  && \
+    curl -sSL https://get.docker.com/ | sh
+```
+
+- *Docker-compose Jenkins*
+
+```consol
+
+version: '3.8'
+services:
+  jenkins:
+    build : .
+    privileged: true
+    user: root
+    ports:
+     - 8080:8080
+     - 50000:50000
+    container_name: jenkins
+    volumes:
+      - ./jenkins_configuration:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+```
+Pour lancer le container jenkins: 
+
+```consol 
+sudo docker compose up
+```
+
+web: http://localhost:8080
+
