@@ -8,14 +8,13 @@ pipeline {
                 ''')
             }
         }
+    }
+}
         
         
-        stage('Build Image') {
-            steps {
-                sh ('''
-                cd Brief8-Raja
-                sudo docker build -t vote-app .
-                ''')
-            }
-        }
+    
+        
+
+    
+
         
