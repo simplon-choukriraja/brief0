@@ -12,9 +12,10 @@ pipeline {
         
         stage('Build Docker') { 
             agent {
-                docker {
+                steps {
+                    docker {
                     image 'python:2-alpine' 
-                
+                    } 
                 }       
             }
         }
