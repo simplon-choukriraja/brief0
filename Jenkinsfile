@@ -4,8 +4,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 sh('''
-                git clone https://github.com/simplon-choukriraja/Brief8-Raja.git
-                ''')
+                git clone git@github.com:simplon-choukriraja/brief0.git                ''')
             }
         }
     
