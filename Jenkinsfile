@@ -9,7 +9,7 @@ pipeline {
         }
     
         
-        stage ('Build Docker') { 
+        stage('Build Docker') { 
             steps {
                 docker {
                     image 'python:2-alpine' 
