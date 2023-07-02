@@ -8,12 +8,14 @@ pipeline {
                 ''')
             }
         }
-    }
-}
     
         
-    
-        
+        stage('Build Docker') { 
+            agent {
+                docker {
+                    image 'python:2-alpine' 
+                
+                }       
+            }
 
-    
-
+}                
