@@ -10,8 +10,10 @@ pipeline {
         }
 
         stage('Build') { 
-            docker {
-                image 'python:2-alpine' 
+            steps {
+                docker {
+                    image 'python:2-alpine' 
+                }
             }
         }    
     }
