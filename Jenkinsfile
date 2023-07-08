@@ -9,15 +9,12 @@ pipeline {
             }
         }
 
-        stage('Build Image') {
-            stage('Build') { 
-                agent {
-                    docker {
-                        image 'python:2-alpine' 
-                    
-                    }
+        stage('Build') { 
+            agent {
+                docker {
+                    image 'python:2-alpine' 
                 }
-            }      
+            }    
         }
     }
     post {
