@@ -8,8 +8,18 @@ pipeline {
                 ''')
             }
         }
-    }
 
+        stage('Build Image') {
+            stage('Build') { 
+                agent {
+                    docker {
+                        image 'python:2-alpine' 
+                    
+                    }
+                }
+            }      
+        }
+        
     post {
         always {
             // Nettoyage de l'espace de travail Jenkins
