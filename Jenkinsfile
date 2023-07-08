@@ -8,15 +8,6 @@ pipeline {
                 ''')
             }
         }
-    
-        
-        stage('Build Docker') { 
-            steps {
-                docker {
-                    image 'python:2-alpine' 
-                } 
-            }       
-        }
     }
 
     post {
